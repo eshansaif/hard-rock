@@ -39,3 +39,12 @@ body{
     border-radius: 15px;
 }
 
+.single-result a{
+    text-decoration: none;
+    /* color: #28a745; */
+    color: white;
+}
+
+.desc{
+    font-weight: 400;
+}
