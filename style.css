@@ -48,3 +48,19 @@ body{
 .desc{
     font-weight: 400;
 }
+
+#play-song{
+    /* margin: 10px; */
+    margin-bottom: 5px;
+    width: 109.26px;
+    height: 44px;
+}
+
+#get-lyrics-btn{
+    margin-bottom: 5px;
+}
+
+/* audio{
+    width: 109.26px;
+    height: 44px;
+} */

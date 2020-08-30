@@ -1,7 +1,10 @@
-
+//search button event handler
 document.getElementById("search").addEventListener("click",function(){
-    
     const inputLyricsValue = document.getElementById("input-lyrics").value;
+    if (inputLyricsValue == "") {
+        alert("Please Enter your desired song!")
+    }
+    
     fetch(`https://api.lyrics.ovh/suggest/${inputLyricsValue}`)
     .then(res => res.json())
     .then(data => {
@@ -10,7 +13,7 @@ document.getElementById("search").addEventListener("click",function(){
         allData = allData.slice(0,10);
         displayData(allData);
     })
-    .catch(error => console.log(error));   
+    .catch(error => alert("Sorry!Your desired song is not found in our track list,try with more popular keywords!"));   
 })
 
 
@@ -20,7 +23,6 @@ function displayData(allData) {
     songDiv.innerHTML = "";
     for (let i = 0; i < allData.length; i++) {
         const song = allData[i];
-        // console.log(song);
         const div = document.createElement("div");
         
         div.innerHTML = 
@@ -34,11 +36,18 @@ function displayData(allData) {
             <p  class="author lead" ><span class="">Artist:</span> <span class="desc" title="Find More song of This artist"><a target="_blank" href="${song.artist.link}">${song.artist.name}</a></span></p>
         </div>
         <div class="col-md-3 text-md-right text-center">
-            <a href="#show-lyrics" id="get-lyrics-btn" onclick="getLyrics('${song.artist.name}','${song.title}')" class="btn btn-success">Get Lyrics</a>
+            <audio controls class="align-middle" id="play-song">
+                <source src="${song.preview}" type="audio/ogg">
+                <source src="${song.preview}" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+
+            <a href="#show-lyrics" id="get-lyrics-btn" onclick="getLyrics('${song.artist.name}','${song.title}')" class="btn btn-success align-middle">Get Lyrics</a>
         </div>
     </div>`;
         songDiv.appendChild(div); 
     }   
+    
 }
 
 // Get lyrics for song
@@ -48,9 +57,9 @@ async function getLyrics(artist, songTitle) {
     const data = await res.json();
   
      if (data.error) {
-        document.getElementById("show-lyrics").innerHTML = data.error;
-        alert(data.error);
-        return data.error;
+        document.getElementById("show-lyrics").innerHTML = `${data.error} for ${songTitle} - ${artist} `;
+        alert(`${data.error} for ${songTitle} - ${artist} `);
+        return;
      } else {
           const lyrics = data.lyrics.replace(/(\r\n|\r|\n)/g, '<br>');
 
@@ -63,4 +72,3 @@ async function getLyrics(artist, songTitle) {
           `;
     }
   }
-  
