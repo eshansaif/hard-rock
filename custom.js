@@ -37,7 +37,7 @@ function displayData(allData) {
         </div>
         <div class="col-md-3 text-md-right text-center">
             <audio controls class="align-middle" id="play-song">
-                <source src="${song.preview}">
+                <source src="${song.preview}" type="audio/mp3">
                 Your browser does not support the audio element.
             </audio>
 
