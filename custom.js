@@ -8,7 +8,6 @@ document.getElementById("search").addEventListener("click",function(){
     fetch(`https://api.lyrics.ovh/suggest/${inputLyricsValue}`)
     .then(res => res.json())
     .then(data => {
-        // console.log(data);
         let allData = data.data;
         allData = allData.slice(0,10);
         displayData(allData);
@@ -36,11 +35,7 @@ function displayData(allData) {
             <p  class="author lead" ><span class="">Artist:</span> <span class="desc" title="Find More song of This artist"><a target="_blank" href="${song.artist.link}">${song.artist.name}</a></span></p>
         </div>
         <div class="col-md-3 text-md-right text-center">
-            <audio controls class="align-middle" id="play-song">
-                <source src="${song.preview}" type="audio/mp3">
-                Your browser does not support the audio element.
-            </audio>
-
+            <a target="_blank" href="${song.preview}" id="play-song" class="btn btn-info align-middle">Play</a>
             <a href="#show-lyrics" id="get-lyrics-btn" onclick="getLyrics('${song.artist.name}','${song.title}')" class="btn btn-success align-middle">Get Lyrics</a>
         </div>
     </div>`;
